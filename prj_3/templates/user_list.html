@@ -1,0 +1,26 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+post
+{% endblock title %}
+
+{% block content %}
+
+<h1>Пользователи</h1>
+
+   <hr>
+   {% if user_list %}
+    <table style="margin-left: 1px; margin-rith: ;">
+           {% for user in user_list %}
+           <tr>
+               <td style="width: 250px">{{user.username}}</td>
+               <td style="width: 500px">написать сообщение</td>
+           </tr>
+           {% endfor %}
+
+    </table>
+   {% else %}
+       <h2>пользователей нет!</h2>
+   {% endif %}
+
+{% endblock content %}

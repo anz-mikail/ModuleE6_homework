@@ -1,0 +1,27 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+post
+{% endblock title %}
+
+{% block content %}
+
+<h1>Комнаты{{room.name}}</h1>
+
+   <hr>
+   {% if room_list %}
+    <table style="margin-left: 1px; margin-rith: ;">
+           {% for room in room_list %}
+           <tr>
+               <td style="width: 250px">{{room.name}}</td>
+               <td style="width: 250px">{{room.host}}</td>
+               <td style="width: 250px">{{room.current_users}}</td>
+           </tr>
+           {% endfor %}
+
+    </table>
+   {% else %}
+       <h2>комнат нет!</h2>
+   {% endif %}
+
+{% endblock content %}
