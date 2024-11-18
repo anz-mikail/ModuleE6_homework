@@ -1,0 +1,39 @@
+{% extends 'flatpages/default.html' %}
+{% block content %}
+
+<html>
+<head>
+    <title>Комнаты</title>
+</head>
+
+<body>
+<span class="text_1">Список общих чатов</span>
+<hr>
+<p>!!{{room_list}}!!{{room_list.Room}}</p>
+{% if user.is_authenticated %}
+{% if room_list %}
+    <table style="margin-left: 1px; margin-rith: ;">
+            <tr>
+                <td class="table">Название:</td>
+                <td class="table">Администратор:</td>
+            </tr>
+        {% for room in room_list %}
+            {% if not room.is_private %}
+            <tr>
+                <td class="table_1">{{room.name}}</td>
+                <td class="table_1">{{room.host}}</td>
+                <td class="table_1"><a href="../chat/{{room.name}}" >Присоединится</a></td>
+                <td class="table_1"><a href="{% url 'room_edit' room.id %}" >Редактировать</a></td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+     </table>
+    {% else %}
+    <h2>комнат нет!</h2>
+{% endif %}
+{% else %}
+    <h2 class="text_1">Для доступа к этой странице вам надо пройти авторизацию!!!</h2>
+{% endif %}
+</body>
+</html>
+{% endblock content %}

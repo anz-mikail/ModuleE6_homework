@@ -1,0 +1,21 @@
+{% extends 'flatpages/default.html' %}
+{% block content %}
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Удаление</title>
+</head>
+{% if userprofile.id == user.id %}
+<body>
+<h3 class="text_1">Удалить аватарку?</h3>
+<hr>						
+<form action="" method="post">						
+    {% csrf_token %}
+    <input id="room-name-submit" type="submit" value="Удалить" />
+</form>
+{% else %}
+<h2 class="text_1">Вы не можете редактировать профиль {{ user.userprofile }}!!!</h2>
+{% endif %}
+</body>
+{% endblock content %}	

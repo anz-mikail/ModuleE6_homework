@@ -1,0 +1,33 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Главная страница</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <span class="text_1">Введите название комнаты!<span>
+    <input id="room-name-input" type="text" size="100"><br>
+    <input id="room-name-submit" type="button" value="Enter">
+
+    <script>
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+    </script>
+{% else %}
+<span class="text_1">Для доступа к этой странице вам надо пройти авторизацию!</span>
+{% endif %}
+</body>
+</html>
+{% endblock content %}

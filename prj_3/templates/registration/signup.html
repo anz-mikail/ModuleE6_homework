@@ -1,0 +1,16 @@
+{% extends "flatpages/default.html" %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<form class="text_3" method="post">
+{% csrf_token %}
+    {{ form.as_p }}
+    <input id="room-edit-submit" type="submit" value="Зарегистрироваться">
+</form>
+</body>
+{% endblock %}

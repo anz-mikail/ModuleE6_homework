@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .text_1{
+            font-size: 35px;
+            color: #711a3d;
+            font-family: sans-serif;
+      }
+        .text_2{
+            font-size: 25px;
+            color: #120d0f;
+            font-family: sans-serif;
+        }
+        .text_3{
+            font-size: 20px;
+            color: #120d0f;
+            font-family: sans-serif;
+        }
+        body {
+            background-color: #a7dada;
+      }
+        .container{
+            display: grid;
+            grid-template-columns: 4fr 1fr;
+            background-color: rgba(27, 40, 67, 0.66);
+            font-size: 25px;
+        }
+        .container_1{
+            display: flex;
+            flex-direction: column;
+        }
+        .container_2{
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: flex-start;
+        }
+        .avatar{
+            border-radius: 30%;
+            border: 2px solid #120d0f;
+            width: 60px;
+            height: 60px;
+        }
+        .cont{
+            color: #120d0f;
+            padding: 10px 10px;
+        }
+        .table{
+            width: 350px;
+            font-size: 30px;
+            padding-top: 10px;
+            color: #244c3c;
+        }
+        .table_1{
+            width: 350px;
+            font-size: 25px;
+            padding-top: 30px;
+        }
+        #room-name-input{
+            border: 2px solid #120d0f;
+            width: 800px;
+            height: 30px;
+            font-size: 20px;
+            background-color: #ffdb7f;
+            color: #711a3d;
+        }
+        #room-name-submit{
+            border: 2px solid #120d0f;
+            width: 120px;
+            height: 30px;
+            font-size: 20px;
+            background-color: #ffdb7f;
+            color: #711a3d;
+            border-radius: 5%;
+        }
+        #room-edit-submit{
+            border: 2px solid #120d0f;
+            width: 250px;
+            height: 50px;
+            font-size: 20px;
+            background-color: #ffdb7f;
+            color: #711a3d;
+        }
+        #chat-message-input{
+            border: 2px solid #120d0f;
+            width: 800px;
+            height: 30px;
+            font-size: 20px;
+            background-color: #ffdb7f;
+            color: #711a3d;
+        }
+        #chat-message-submit{
+            border: 2px solid #120d0f;
+            width: 120px;
+            height: 30px;
+            font-size: 20px;
+            background-color: #ffdb7f;
+            color: #711a3d;
+            border-radius: 5%;
+        }
+        #chat-log{
+            border: 2px solid #120d0f;
+            width: 800px;
+            height: 400px;
+            font-size: 20px;
+            background-color: #ffdb7f;
+            color: #711a3d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="container_1">
+                <p><a class="cont" href="/chat/">Главная</a></p>
+                {% if user.is_authenticated %}
+                <p><a class="cont" href="/users/">Пользователи</a></p>
+                <p><a class="cont" href="/rooms/">Комнаты</a></p>
+                <p><a class="cont" href={% url 'create_profile' user.id %}>Моя аватарка</a></p>
+                <p><a class="cont" href="/accounts/logout/">Выход</a></p>
+        </div>
+        <div class="container_2">
+            <ul>
+                <div>{{ user }}</div>
+                <div><img class="avatar" src="{{ user.userprofile.avatar.url }}" alt="Avatar"></div>
+                {% else %}
+                <p><a class="cont" href="/accounts/login/">Вход</a></p>
+                <p><a class="cont" href="/accounts/signup/">Регистрация</a></p>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="container_3">
+        {% block content %}
+        {{ flatpage.content }}
+        {% endblock content %}
+    </div>
+</body>
+
+</html>

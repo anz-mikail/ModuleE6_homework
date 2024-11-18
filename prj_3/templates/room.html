@@ -1,0 +1,118 @@
+{% extends 'flatpages/default.html' %}
+{% block content %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Комната</title>
+</head>
+<body>
+<p>!!{{is_private}}!!</p>
+<table>
+{% for room in create_room %}
+            <tr><td>{{room.name}}</td>
+                <td>{{room.host}}</td>
+                <td>{{room.is_private}}</td></tr>
+{% endfor %}
+</table>
+
+{% if user.is_authenticated %}
+    {% if room.is_private %}
+        {% if user.id|stringformat:"s" in room_name %}
+            <p class="text_1">{{user.id}} Добро {{request.user.id}} пожаловать на {{room_name}}</p>
+
+            <h1 class="text_1">Приватный чат - {{room_name}}</h1>
+
+            <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+            <input id="chat-message-input" type="text" size="100"><br>
+            <input id="chat-message-submit" type="button" value="Отправить">
+            {{ room_name|json_script:"room-name" }}
+            <script>
+                const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+                const chatSocket = new WebSocket(
+                    'ws://'
+                    + window.location.host
+                    + '/ws/chat/'
+                    + roomName
+                    + '/'
+                );
+
+                chatSocket.onmessage = function(e) {
+                    const data = JSON.parse(e.data);
+                    document.querySelector('#chat-log').value += (data.message + '\n');
+                };
+
+                chatSocket.onclose = function(e) {
+                    console.error('Chat socket closed unexpectedly');
+                };
+
+                document.querySelector('#chat-message-input').focus();
+                document.querySelector('#chat-message-input').onkeyup = function(e) {
+                    if (e.keyCode === 13) {  // enter, return
+                        document.querySelector('#chat-message-submit').click();
+                    }
+                };
+
+                document.querySelector('#chat-message-submit').onclick = function(e) {
+                    const messageInputDom = document.querySelector('#chat-message-input');
+                    const message = messageInputDom.value;
+                    chatSocket.send(JSON.stringify({
+                        'message': message
+                    }));
+                    messageInputDom.value = '';
+                };
+            </script>
+        {% else %}
+            <p class="text_1">{{user.id}} У вас нет доступа на {{room_name}}</p>
+        {% endif %}
+    {% else %}
+
+    <h1 class="text_1">комната - {{room_name}}</h1>
+
+    <textarea id="room-log" cols="100" rows="20"></textarea><br>
+    <input id="room-message-input" type="text" size="100"><br>
+    <input id="room-message-submit" type="button" value="Отправить">
+    {{ room_name|json_script:"room-name" }}
+    <script>
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + roomName
+            + '/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            document.querySelector('#chat-log').value += (data.message + '\n');
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#room-message-input').focus();
+        document.querySelector('#room-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-message-submit').click();
+            }
+        };
+
+        document.querySelector('#room-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#room-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+    </script>
+    {% endif %}
+{% else %}
+    <h2 class="text_1">Для доступа к этой странице вам надо пройти авторизацию!!!</h2>
+{% endif %}
+</body>
+</html>
+{% endblock content %}

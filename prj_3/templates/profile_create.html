@@ -1,0 +1,29 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Профиль</title>
+</head>
+<body>
+<h3>{{user.userprofile.id}}!!{{request.user.id}}</h3>
+
+<h3 class="text_1">Ваш профиль</h3>
+<hr>
+    {% if user.userprofile %}
+        <p class="table_1">{{ user.username }}</p>
+        <img class="avatar" src="{{ user.userprofile.avatar.url }}" alt="Avatar" height=100px>
+        <div class="table_1"><a href="{% url 'profile_delete' user.userprofile.id %}">удалить</a></div>
+    {% else %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button id="room-name-submit" type="submit">Загрузить</button>
+    {% endif %}
+
+</form>
+</body>
+</html>
+{% endblock content %}
+

@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+</head>
+<body>
+<form  class="text_2" method="post" action="{% url 'login' %}">
+{% csrf_token %}
+    {{ form.as_p }}
+    <input id="room-name-submit" type="submit" value="Войти">
+    <input type="hidden" name="next" value="{{ next }}">
+</form>
+</body>
+{% endblock %}
