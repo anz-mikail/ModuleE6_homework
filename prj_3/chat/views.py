@@ -23,11 +23,14 @@ def create_private_chat(request, user_id):
         defaults={'host': request.user, 'is_private': True}
     )
 
-    context['is_private'] = user_id.id in room.is_private
-
     room.current_users.add(request.user, other_user)
-    return redirect('create_room', room_name=room.name)
+    return redirect('create_chat', room_name=room.name,)
 
+
+def create_chat(request, room_name):
+    return render(request, 'private_chat.html', {
+        'room_name': room_name
+    })
 
 def index(request):
     return render(request, 'index.html', {})

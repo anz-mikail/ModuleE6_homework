@@ -3,19 +3,21 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Комната</title>
+    <title>Приватный чат</title>
 </head>
 <body>
-{% if user.is_authenticated %}
+{% if user.id|stringformat:"s" in room_name %}
 
-    <p class="text_1">Уважаемый {{ user.username}} Добро пожаловать в комнату:{{room_name}}</p>
+    <h1 class="text_1">Приватный чат: {{user.username}}-{{other_user.username}}</h1>
+    <h1 class="text_1">Чат номер:{{room_name}}</h1>
 
     <textarea id="chat-log" cols="100" rows="20"></textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Отправить">
     {{ room_name|json_script:"room-name" }}
+
     <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+                const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
                 const chatSocket = new WebSocket(
                     'ws://'
@@ -51,8 +53,9 @@
                 };
     </script>
 {% else %}
-    <h2 class="text_1">Для доступа к этой странице вам надо пройти авторизацию!!!</h2>
+    <p class="text_1">У вас нет доступа к чату: {{room_name}}</p>
 {% endif %}
 </body>
+
 </html>
 {% endblock content %}
