@@ -6,7 +6,6 @@
     <title>Параметры комнаты</title>
 </head>
 <body>
-<h3>{{room.host}}!!{{request.user}}</h3>
 {% if room.host == request.user %}
     <h2 class="text_1">Редактирование комнаты: {{ room.name }}</h2>
     <form class="text_2" method="POST">

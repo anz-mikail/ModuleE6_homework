@@ -6,8 +6,8 @@
 {% if room.host == request.user %}
 <form action="" method="post">						
     {% csrf_token %}						
-    <p class="text_1">Удаляем ? "{{ object.name }}"?</p>
-    <input id="room-name-submit" type="submit" value="Delete" />
+    <p class="text_1">Удаляем "{{ object.name }}"?</p>
+    <input id="room-name-submit" type="submit" value="Удалить" />
 </form>
 {% else %}
     <h2 class="text_1">Вам нужны права администратора для удаления комнаты: {{ room.name }}!!!</h2>
