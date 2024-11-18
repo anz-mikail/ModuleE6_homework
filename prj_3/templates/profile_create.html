@@ -8,18 +8,20 @@
 </head>
 <body>
 
+{% if user.userprofile %}
 <h3 class="text_1">Ваш профиль</h3>
 <hr>
-    {% if user.userprofile %}
-        <p class="table_1">{{ user.username }}</p>
+
+        <p class="NickName">{{ user.userprofile.nick }}</p>
         <img class="avatar" src="{{ user.userprofile.avatar.url }}" alt="Avatar" height=100px>
-        <div class="table_1"><a href="{% url 'profile_delete' user.userprofile.id %}">удалить</a></div>
-    {% else %}
-    <form method="post" enctype="multipart/form-data">
+        <div class="table_1"><a href="{% url 'profile_edit' user.userprofile.id %}">Редактировать</a></div>
+{% else %}
+<h3 class="text_1">Создать профиль</h3>
+    <form class="table_1" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button id="room-name-submit" type="submit">Загрузить</button>
-    {% endif %}
+        {% endif %}
 
 </form>
 </body>

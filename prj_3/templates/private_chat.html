@@ -8,7 +8,6 @@
 <body>
 {% if user.id|stringformat:"s" in room_name %}
 
-    <h1 class="text_1">Приватный чат: {{user.username}}-{{other_user.username}}</h1>
     <h1 class="text_1">Чат номер:{{room_name}}</h1>
 
     <textarea id="chat-log" cols="100" rows="20"></textarea><br>

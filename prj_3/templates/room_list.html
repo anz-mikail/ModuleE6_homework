@@ -13,8 +13,8 @@
 {% if room_list %}
     <table style="margin-left: 1px; margin-rith: ;">
             <tr>
-                <td class="table">Название:</td>
-                <td class="table">Администратор:</td>
+                <td class="table">Название комнаты:</td>
+                <td class="table">Администратор комнаты:</td>
             </tr>
         {% for room in room_list %}
             {% if not room.is_private %}

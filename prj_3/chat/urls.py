@@ -11,5 +11,6 @@ urlpatterns = [
     path('room/edit/<int:pk>/', views.RoomUpdate.as_view(), name='room_edit'),
     path('room/<int:pk>/delete/', views.RoomDelete.as_view(), name='room_delete'),
     path('profile/<int:pk>/', views.CreateProfile.as_view(), name='create_profile'),
+    path('profile/<int:pk>/edit/', views.ProfileUpdate.as_view(), name='profile_edit'),
     path('profile/<int:pk>/delete/', views.ProfileDelete.as_view(), name='profile_delete'),
 ]

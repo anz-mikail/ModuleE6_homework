@@ -83,8 +83,16 @@ class CreateProfile(CreateView):
 
 
 class ProfileDelete(DeleteView):
+    form_class = UserForm
     model = UserProfile
     template_name = 'profile_delete.html'
+    success_url = '/chat/'
+
+
+class ProfileUpdate(UpdateView):
+    form_class = UserForm
+    model = UserProfile
+    template_name = 'profile_edit.html'
     success_url = '/chat/'
 
 

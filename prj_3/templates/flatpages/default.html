@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
     <style>
+        .NickName{
+            font-size: 25px;
+            color: #0c1c61;
+            font-family: sans-serif;
+        }
+
         .text_1{
             font-size: 35px;
             color: #711a3d;
@@ -114,13 +120,14 @@
                 {% if user.is_authenticated %}
                 <p><a class="cont" href="/users/">Пользователи</a></p>
                 <p><a class="cont" href="/rooms/">Комнаты</a></p>
-                <p><a class="cont" href={% url 'create_profile' user.id %}>Моя аватарка</a></p>
+                <p><a class="cont" href={% url 'create_profile' user.id %}>Мой Профиль</a></p>
+
                 <p><a class="cont" href="/accounts/logout/">Выход</a></p>
         </div>
         <div class="container_2">
             <ul>
-                <div>{{ user }}</div>
-                <div><img class="avatar" src="{{ user.userprofile.avatar.url }}" alt="Avatar"></div>
+                <div class="NickName">{{ user.userprofile.nick }}</div>
+                <div><img class="avatar" src="{{ user.userprofile.avatar.url }}" alt="Profile"></div>
                 {% else %}
                 <p><a class="cont" href="/accounts/login/">Вход</a></p>
                 <p><a class="cont" href="/accounts/signup/">Регистрация</a></p>
