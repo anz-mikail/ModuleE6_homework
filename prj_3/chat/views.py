@@ -1,9 +1,7 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from django.template import context
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.shortcuts import get_object_or_404, render, reverse
-from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 
 from .models import Room, UserProfile
 from .forms import UserForm, RoomForm
@@ -31,6 +29,7 @@ def create_chat(request, room_name):
     return render(request, 'private_chat.html', {
         'room_name': room_name
     })
+
 
 def index(request):
     return render(request, 'index.html', {})
